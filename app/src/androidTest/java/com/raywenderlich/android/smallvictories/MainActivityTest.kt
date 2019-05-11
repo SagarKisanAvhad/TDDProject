@@ -33,6 +33,7 @@ package com.raywenderlich.android.smallvictories
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.assertion.ViewAssertions.doesNotExist
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.filters.LargeTest
@@ -96,6 +97,29 @@ class MainActivityTest {
         //assert
         onView(allOf(withId(R.id.textVictoryCount), withText((previousCount + 1).toString())))
                 .check(matches(isDisplayed()))
+
+    }
+
+    @Test
+    fun onFabClickedonEditingTitleDoesntChangeCount() {
+
+        //arrage
+        onView(withId(R.id.fab)).perform(click())
+
+        //act
+        onView(withId(R.id.textVictoryTitle)).perform(click())
+
+        val updatedTitle = "Updated victory title"
+        onView(instanceOf(EditText::class.java))
+                .perform(clearText())
+                .perform(typeText(updatedTitle))
+
+        onView(withText(R.string.dialog_ok)).perform(click())
+
+        //assert
+        onView(allOf(withId(R.id.textVictoryCount), withText("0")))
+                .check(doesNotExist())
+
 
     }
 }
