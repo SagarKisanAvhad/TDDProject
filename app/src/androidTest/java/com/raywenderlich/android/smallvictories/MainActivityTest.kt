@@ -37,13 +37,12 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
 import android.widget.EditText
+import android.widget.TextView
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @LargeTest
 class MainActivityTest {
@@ -80,4 +79,23 @@ class MainActivityTest {
     onView(allOf(withId(R.id.textVictoryTitle), withText(newTitle)))
         .check(matches(isDisplayed()))
   }
+
+    @Test
+    fun onFabClickedUpdatesCount() {
+        //arrange
+        val previousCountString = rule.activity.findViewById<TextView>(R.id.textVictoryCount).text.toString()
+        val previousCount = if (previousCountString.isBlank()) {
+            0
+        } else {
+            previousCountString.toInt()
+        }
+
+        //act
+        onView(withId(R.id.fab)).perform(click())
+
+        //assert
+        onView(allOf(withId(R.id.textVictoryCount), withText((previousCount + 1).toString())))
+                .check(matches(isDisplayed()))
+
+    }
 }

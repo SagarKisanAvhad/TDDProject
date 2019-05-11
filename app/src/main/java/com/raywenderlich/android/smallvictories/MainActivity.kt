@@ -85,6 +85,8 @@ class MainActivity : AppCompatActivity() {
         textVictoryTitle.text = uiModel.title
       }
       is VictoryUiModel.CountUpdated -> {
+        //on fab clicked, updates textVictoryCount
+        textVictoryCount.text = uiModel.count.toString()
       }
     }
   }
