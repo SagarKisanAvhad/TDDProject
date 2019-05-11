@@ -72,6 +72,30 @@ class VictoryViewModelTest {
     verify(viewStateObserver).onChanged(VictoryUiModel.TitleUpdated(title))
   }
 
+
+    @Test
+    fun incrementVictoryCountCallsRepository() {
+        stubVictoryRepositoryGetVictoryCount(5) //arrange
+        viewModel.incrementVictoryCount() //action
+        verify(mockVictoryRepository).getVictoryCount() //assert
+    }
+
+    @Test
+    fun incrementVictoryCountUpdatesCount() {
+        val previousCount = 5
+        stubVictoryRepositoryGetVictoryCount(previousCount) //arrange
+        viewModel.incrementVictoryCount() //action
+        verify(mockVictoryRepository).setVictoryCount(previousCount + 1) //assert
+    }
+
+    @Test
+    fun incrementVictoryCountReturnsCount() {
+        val previousCount = 5
+        stubVictoryRepositoryGetVictoryCount(previousCount) //arrange
+        viewModel.incrementVictoryCount() //action
+        verify(viewStateObserver).onChanged(VictoryUiModel.CountUpdated(previousCount + 1))
+    }
+
   private fun stubVictoryRepositoryGetVictoryTitleAndCount(titleAndCount: Pair<String, Int>) {
     stubVictoryRepositoryGetVictoryTitle(titleAndCount.first)
     stubVictoryRepositoryGetVictoryCount(titleAndCount.second)

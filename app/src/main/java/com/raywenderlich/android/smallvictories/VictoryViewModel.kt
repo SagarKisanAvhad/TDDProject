@@ -37,25 +37,28 @@ import android.arch.lifecycle.ViewModel
 
 class VictoryViewModel : ViewModel() {
 
-  val viewState: MutableLiveData<VictoryUiModel> = MutableLiveData()
-  lateinit var repository: VictoryRepository
+    val viewState: MutableLiveData<VictoryUiModel> = MutableLiveData()
+    lateinit var repository: VictoryRepository
 
-  fun initialize() {
-    viewState.value = VictoryUiModel.TitleUpdated(repository.getVictoryTitle())
-    viewState.value = VictoryUiModel.CountUpdated(repository.getVictoryCount())
-  }
+    fun initialize() {
+        viewState.value = VictoryUiModel.TitleUpdated(repository.getVictoryTitle())
+        viewState.value = VictoryUiModel.CountUpdated(repository.getVictoryCount())
+    }
 
-  fun setVictoryTitle(title: String) {
-    repository.setVictoryTitle(title)
-    viewState.value = VictoryUiModel.CountUpdated(0)
-    viewState.value = VictoryUiModel.TitleUpdated(title)
-  }
+    fun setVictoryTitle(title: String) {
+        repository.setVictoryTitle(title)
+        viewState.value = VictoryUiModel.CountUpdated(0)
+        viewState.value = VictoryUiModel.TitleUpdated(title)
+    }
 
-  fun incrementVictoryCount() {
-  }
+    fun incrementVictoryCount() {
+        //get count from repo
+        //increment and save count to repo
+        //pass updated count to view
+    }
 
-  fun reset() {
-    // TODO reset existing victory title and count
-  }
+    fun reset() {
+        // TODO reset existing victory title and count
+    }
 }
 
