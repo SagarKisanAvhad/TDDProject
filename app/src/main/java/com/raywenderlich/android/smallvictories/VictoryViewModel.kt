@@ -41,8 +41,9 @@ class VictoryViewModel : ViewModel() {
     lateinit var repository: VictoryRepository
 
     fun initialize() {
-        viewState.value = VictoryUiModel.TitleUpdated(repository.getVictoryTitle())
-        viewState.value = VictoryUiModel.CountUpdated(repository.getVictoryCount())
+        val (title, count) = repository.getVictoryTitleAndCount()
+        viewState.value = VictoryUiModel.TitleUpdated(title)
+        viewState.value = VictoryUiModel.CountUpdated(count)
     }
 
     fun setVictoryTitle(title: String) {
