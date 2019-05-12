@@ -63,7 +63,9 @@ class VictoryViewModel : ViewModel() {
     }
 
     fun reset() {
-        // TODO reset existing victory title and count
+        // clear repo
+        // get title and count
+        // return title and count
     }
 }
 
