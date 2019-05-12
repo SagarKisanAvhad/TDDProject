@@ -101,7 +101,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun onFabClickedonEditingTitleDoesntChangeCount() {
+    fun onFabClickedOnEditingTitleDoesntChangeCount() {
 
         //arrage
         onView(withId(R.id.fab)).perform(click())
@@ -120,6 +120,95 @@ class MainActivityTest {
         onView(allOf(withId(R.id.textVictoryCount), withText("0")))
                 .check(doesNotExist())
 
+
+    }
+
+    @Test
+    fun onUpdatedTitleOnUpdatedCountOnResetClickedChangesTitle() {
+
+        onView(withId(R.id.textVictoryTitle)).perform(click())
+
+        val updatedTitle = "Updated Title"
+        onView(instanceOf(EditText::class.java))
+                .perform(clearText())
+                .perform(typeText(updatedTitle))
+        onView(withText(R.string.dialog_ok)).perform(click())
+
+        onView(withId(R.id.fab)).perform(click())
+        val countInString = rule.activity.findViewById<TextView>(R.id.textVictoryCount).text.toString()
+
+
+        onView(withId(R.id.action_reset)).perform(click()) // act
+
+        onView(allOf(withId(R.id.textVictoryTitle), withText(updatedTitle)))
+                .check(doesNotExist())
+
+    }
+
+    @Test
+    fun onUpdatedTitleOnUpdatedCountOnResetClickedResetsTitle() {
+
+        onView(withId(R.id.textVictoryTitle)).perform(click())
+
+        val updatedTitle = "Updated Title"
+        onView(instanceOf(EditText::class.java))
+                .perform(clearText())
+                .perform(typeText(updatedTitle))
+        onView(withText(R.string.dialog_ok)).perform(click())
+
+        onView(withId(R.id.fab)).perform(click())
+        val countInString = rule.activity.findViewById<TextView>(R.id.textVictoryCount).text.toString()
+
+
+        onView(withId(R.id.action_reset)).perform(click()) // act
+
+        onView(allOf(withId(R.id.textVictoryTitle), withText("Victory title")))
+                .check(matches(isDisplayed()))
+
+    }
+
+
+    @Test
+    fun onUpdatedTitleOnUpdatedCountOnResetClickedChangesCount() {
+
+        onView(withId(R.id.textVictoryTitle)).perform(click())
+
+        val updatedTitle = "Updated Title"
+        onView(instanceOf(EditText::class.java))
+                .perform(clearText())
+                .perform(typeText(updatedTitle))
+        onView(withText(R.string.dialog_ok)).perform(click())
+
+        onView(withId(R.id.fab)).perform(click())
+        val countInString = rule.activity.findViewById<TextView>(R.id.textVictoryCount).text.toString()
+
+
+        onView(withId(R.id.action_reset)).perform(click()) // act
+
+        onView(allOf(withId(R.id.textVictoryCount), withText(countInString)))
+                .check(doesNotExist()) //assert
+
+    }
+
+    @Test
+    fun onUpdatedTitleOnUpdatedCountOnResetClickedResetsCount() {
+
+        onView(withId(R.id.textVictoryTitle)).perform(click())
+
+        val updatedTitle = "Updated Title"
+        onView(instanceOf(EditText::class.java))
+                .perform(clearText())
+                .perform(typeText(updatedTitle))
+        onView(withText(R.string.dialog_ok)).perform(click())
+
+        onView(withId(R.id.fab)).perform(click())
+        val countInString = rule.activity.findViewById<TextView>(R.id.textVictoryCount).text.toString()
+
+
+        onView(withId(R.id.action_reset)).perform(click()) // act
+
+        onView(allOf(withId(R.id.textVictoryCount), withText("0")))
+                .check(matches(isDisplayed())) //assert
 
     }
 }
