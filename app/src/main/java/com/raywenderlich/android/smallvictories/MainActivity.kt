@@ -46,12 +46,14 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
+  private lateinit var viewModel: VictoryViewModel
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     setSupportActionBar(toolbar)
 
-    val viewModel = ViewModelProviders.of(this).get(VictoryViewModel::class.java)
+    viewModel = ViewModelProviders.of(this).get(VictoryViewModel::class.java)
     viewModel.viewState.observe(this, Observer { it ->
       it?.let { render(it) }
     })
@@ -72,7 +74,7 @@ class MainActivity : AppCompatActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.action_reset -> {
-        // TODO reset existing victory title and count
+        viewModel.reset()
         true
       }
       else -> super.onOptionsItemSelected(item)
