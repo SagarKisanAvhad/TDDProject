@@ -125,6 +125,10 @@ class VictoryViewModelTest {
 
     @Test
     fun resetCallsRepositoryForClear() {
+        val title = "Old Title"
+        val count = 5
+        stubVictoryRepositoryGetVictoryTitleAndCount(title to count)
+
         viewModel.reset() //act
         verify(mockVictoryRepository).clear() //assert
     }
@@ -133,7 +137,7 @@ class VictoryViewModelTest {
     fun resetCallsRepositoryForTitleAndCount() {
 
         val title = "New Title"
-        val count = 5
+        val count = 3
         stubVictoryRepositoryGetVictoryTitleAndCount(title to count)
 
         viewModel.reset()
@@ -145,7 +149,7 @@ class VictoryViewModelTest {
     @Test
     fun resetReturnsTitle() {
         val title = "New Title"
-        val count = 5
+        val count = 3
         stubVictoryRepositoryGetVictoryTitleAndCount(title to count)
 
         viewModel.reset()
@@ -156,7 +160,7 @@ class VictoryViewModelTest {
     fun resetReturnsCount() {
 
         val title = "New Title"
-        val count = 5
+        val count = 3
         stubVictoryRepositoryGetVictoryTitleAndCount(title to count)
 
         viewModel.reset()
